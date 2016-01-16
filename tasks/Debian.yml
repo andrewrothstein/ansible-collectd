@@ -1,0 +1,6 @@
+---
+- name: install...
+  apt: name={{item}} state=latest
+  with_items:
+    - collectd
+    - collectd-utils

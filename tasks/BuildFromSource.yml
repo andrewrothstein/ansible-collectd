@@ -1,0 +1,31 @@
+---
+- name: download collectd source
+  get_url: >-
+    url={{collectd_tgz_url}}
+    dest=/tmp/{{collectd_tgz}}
+    owner=root
+    group=root
+    mode=644
+
+- name: unarchive...
+  unarchive: >-
+    copy=no
+    src=/tmp/{{collectd_tgz}}
+    dest=/opt
+    owner=root
+    group=root
+
+- name: configure...
+  command: ./configure
+  args:
+    chdir: /opt/{{collectd_name}}
+    creates: /opt/{{collectd_name}}/Makefile
+
+- name: make all install...
+  command: make all install
+  args:
+    chdir: /opt/{{collectd_name}}
+
+- name: cleanup...
+  when: collectd_build_clean
+  command: rm -rf /opt/{{collectd_name}}
