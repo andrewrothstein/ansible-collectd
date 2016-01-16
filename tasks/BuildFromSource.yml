@@ -16,10 +16,10 @@
     group=root
 
 - name: configure...
-  command: ./configure
+  command: ./configure --enable-log_logstash
   args:
     chdir: /opt/{{collectd_name}}
-    creates: /opt/{{collectd_name}}/Makefile
+#    creates: /opt/{{collectd_name}}/Makefile
 
 - name: make all install...
   command: make all install
