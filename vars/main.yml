@@ -2,3 +2,5 @@
 collectd_name : 'collectd-{{collectd_ver}}'
 collectd_tgz : '{{collectd_name}}.tar.gz'
 collectd_tgz_url : '{{collectd_mirror}}/{{collectd_tgz}}'
+collectd_src_dir : '/opt/{{collectd_name}}'
+collectd_target_dir : '/opt/{{collectd_name}}-bin'

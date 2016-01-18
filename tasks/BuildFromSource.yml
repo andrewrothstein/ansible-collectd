@@ -16,16 +16,17 @@
     group=root
 
 - name: configure...
-  command: ./configure --enable-log_logstash
+  command: ./configure --enable-log_logstash --prefix={{collectd_target_dir}}
   args:
-    chdir: /opt/{{collectd_name}}
-#    creates: /opt/{{collectd_name}}/Makefile
+    chdir: '{{collectd_src_dir}}'
+    creates: /opt/{{collectd_name}}/Makefile
 
 - name: make all install...
   command: make all install
   args:
-    chdir: /opt/{{collectd_name}}
+    chdir: '{{collectd_src_dir}}'
+    creates: '{{collectd_target_dir}}/sbin/collectd'
 
 - name: cleanup...
   when: collectd_build_clean
-  command: rm -rf /opt/{{collectd_name}}
+  command: rm -rf '{{collectd_src_dir}}'

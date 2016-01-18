@@ -1,3 +1,29 @@
 ---
 - name: build from source...
   include: BuildFromSource.yml
+
+- name: apply configuration...
+  template: >-
+    src=etc/collectd.conf.j2
+    dest={{collectd_target_dir}}/etc/collectd.conf
+    owner=root
+    group=root
+    mode=644
+
+- name: install collectd.service...
+  register: collectd_service_updated
+  template: >-
+    src=usr/lib/systemd/system/collectd.service.j2
+    dest=/usr/lib/systemd/system/collectd.service
+    owner=root
+    group=root
+    mode=644
+
+- name: systemctl daemon-reload
+  when: collectd_service_updated.changed
+  command: systemctl daemon-reload
+
+- name: collectd restarted/enabled
+  service: name=collectd.service state=restarted enabled=yes
+
+  
