@@ -20,6 +20,6 @@ galaxy_info:
   categories:
     - development
 
-dependencies:
-  - andrewrothstein.libyajl
+dependencies: []
+
   

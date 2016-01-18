@@ -16,7 +16,7 @@
     group=root
 
 - name: configure...
-  command: ./configure --enable-log_logstash --prefix={{collectd_target_dir}}
+  command: ./configure --prefix={{collectd_target_dir}}
   args:
     chdir: '{{collectd_src_dir}}'
     creates: /opt/{{collectd_name}}/Makefile

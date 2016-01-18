@@ -60,7 +60,7 @@ Hostname    "{{inventory_hostname}}"
 
 LoadPlugin syslog
 #LoadPlugin logfile
-LoadPlugin log_logstash
+#LoadPlugin log_logstash
 
 #<Plugin logfile>
 #	LogLevel info
@@ -69,14 +69,14 @@ LoadPlugin log_logstash
 #	PrintSeverity false
 #</Plugin>
 
-<Plugin log_logstash>
-	LogLevel info
-	File "/var/log/collectd.json.log"
-</Plugin>
-
-#<Plugin syslog>
+#<Plugin log_logstash>
 #	LogLevel info
+#	File "/var/log/collectd.json.log"
 #</Plugin>
+
+<Plugin syslog>
+	LogLevel info
+</Plugin>
 
 ##############################################################################
 # LoadPlugin section                                                         #
@@ -122,7 +122,7 @@ LoadPlugin entropy
 #LoadPlugin fscache
 ##LoadPlugin gmond
 #LoadPlugin hddtemp
-LoadPlugin interface
+#LoadPlugin interface
 #LoadPlugin ipc
 ##LoadPlugin iptables
 ##LoadPlugin ipmi
@@ -174,7 +174,7 @@ LoadPlugin processes
 ##LoadPlugin smart
 ##LoadPlugin snmp
 #LoadPlugin statsd
-#LoadPlugin swap
+LoadPlugin swap
 #LoadPlugin table
 #logLoadPlugin tail
 #LoadPlugin tail_csv
@@ -592,9 +592,9 @@ LoadPlugin users
 #	</Plugin>
 #</Plugin>
 
-#<Plugin load>
-#        ReportRelative true
-#</Plugin>
+<Plugin load>
+        ReportRelative true
+</Plugin>
 
 #<Plugin lpar>
 #	CpuPoolStats   false
@@ -643,10 +643,10 @@ LoadPlugin users
 #	</Instance>
 #</Plugin>
 
-#<Plugin memory>
-#	ValuesAbsolute true
-#	ValuesPercentage false
-#</Plugin>
+<Plugin memory>
+	ValuesAbsolute true
+	ValuesPercentage false
+</Plugin>
 
 #<Plugin modbus>
 #	<Data "data_name">
@@ -752,14 +752,14 @@ LoadPlugin users
 
 <Plugin network>
 #	# client setup:
-	Server "ff18::efc0:4a42" "25826"
-	<Server "239.192.74.66" "25826">
+	Server "{{ansible_default_ipv4['address']}}" "25826"
+#	<Server "239.192.74.66" "25826">
 #		SecurityLevel Encrypt
 #		Username "user"
 #		Password "secret"
 #		Interface "eth0"
 #		ResolveInterval 14400
-	</Server>
+#	</Server>
 #	TimeToLive 128
 #
 #	# server setup:
@@ -966,9 +966,9 @@ LoadPlugin users
 #  LocalSocket "/opt/collectd/var/run/collectd-powerdns"
 #</Plugin>
 
-#<Plugin processes>
+<Plugin processes>
 #	Process "name"
-#</Plugin>
+</Plugin>
 
 #<Plugin protocols>
 #	Value "/^Tcp:/"
@@ -1109,12 +1109,12 @@ LoadPlugin users
 #  TimerCount     false
 #</Plugin>
 
-#<Plugin swap>
+<Plugin swap>
 #	ReportByDevice false
 #	ReportBytes true
 #	ValuesAbsolute true
 #	ValuesPercentage false
-#</Plugin>
+</Plugin>
 
 #<Plugin table>
 #	<Table "/proc/slabinfo">
