@@ -1,4 +1,11 @@
 ---
+- name: deps...
+  when: ansible_os_family == 'RedHat'
+  package: name={{item}} state=latest
+  with_items:
+    - gcc
+    - perl-devel
+
 - name: download collectd source
   get_url: >-
     url={{collectd_tgz_url}}
