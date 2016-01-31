@@ -2,3 +2,4 @@
 collectd_ver : '5.5.0'
 collectd_mirror : 'https://collectd.org/files'
 collectd_build_clean : False
+collectd_network_port : 25826

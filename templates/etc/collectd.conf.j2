@@ -752,7 +752,7 @@ LoadPlugin users
 
 <Plugin network>
 #	# client setup:
-	Server "{{ansible_default_ipv4['address']}}" "25826"
+	Server "{{ansible_default_ipv4['address']}}" "{{collectd_network_port}}"
 #	<Server "239.192.74.66" "25826">
 #		SecurityLevel Encrypt
 #		Username "user"
