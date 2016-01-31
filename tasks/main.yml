@@ -24,6 +24,9 @@
   command: systemctl daemon-reload
 
 - name: collectd restarted/enabled
-  service: name=collectd.service state=restarted enabled=yes
+  service: >
+    name=collectd.service
+    state=restarted
+    enabled=yes
 
   
