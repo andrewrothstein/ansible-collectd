@@ -21,6 +21,7 @@
     dest=/opt
     owner=root
     group=root
+    creates={{collectd_src_dir}}
 
 - name: configure...
   command: ./configure --prefix={{collectd_target_dir}}

@@ -110,7 +110,7 @@ LoadPlugin cpu
 #LoadPlugin curl_xml
 ##LoadPlugin dbi
 LoadPlugin df
-#LoadPlugin disk
+LoadPlugin disk
 ##LoadPlugin dns
 #LoadPlugin drbd
 #LoadPlugin email
@@ -478,9 +478,9 @@ LoadPlugin users
 #</Plugin>
 
 <Plugin df>
-#	Device "/dev/hda1"
+	Device "/dev/vda"
 #	Device "192.168.0.2:/mnt/nfs"
-	MountPoint "/opt"
+#	MountPoint "/opt"
 #	FSType "ext3"
 #	IgnoreSelected false
 #	ReportByDevice false
@@ -490,12 +490,12 @@ LoadPlugin users
 #	ValuesPercentage false
 </Plugin>
 
-#<Plugin disk>
-#	Disk "/^[hs]d[a-f][0-9]?$/"
-#	IgnoreSelected false
+<Plugin disk>
+	Disk "/^vd[a-f][0-9]?$/"
+	IgnoreSelected false
 #	UseBSDName false
 #	UdevNameAttr "DEVNAME"
-#</Plugin>
+</Plugin>
 
 #<Plugin dns>
 #	Interface "eth0"
