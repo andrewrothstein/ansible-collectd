@@ -122,7 +122,7 @@ LoadPlugin entropy
 #LoadPlugin fscache
 ##LoadPlugin gmond
 #LoadPlugin hddtemp
-#LoadPlugin interface
+LoadPlugin interface
 #LoadPlugin ipc
 ##LoadPlugin iptables
 ##LoadPlugin ipmi
@@ -206,7 +206,7 @@ LoadPlugin users
 #LoadPlugin write_tsdb
 ##LoadPlugin xmms
 #LoadPlugin zfs_arc
-#LoadPlugin zookeeper
+LoadPlugin zookeeper
 
 ##############################################################################
 # Plugin configuration                                                       #
@@ -557,10 +557,11 @@ LoadPlugin users
 #  Port "7634"
 #</Plugin>
 
-#<Plugin interface>
-#	Interface "eth0"
-#	IgnoreSelected false
-#</Plugin>
+<Plugin interface>
+	Interface "eth0"
+	Interface "docker0"
+	IgnoreSelected false
+</Plugin>
 
 #<Plugin ipmi>
 #	Sensor "some_sensor"
@@ -1413,10 +1414,10 @@ LoadPlugin users
 #	</Node>
 #</Plugin>
 
-#<Plugin zookeeper>
-#    Host "localhost"
-#    Port "2181"
-#</Plugin>
+<Plugin zookeeper>
+    Host "localhost"
+    Port "2181"
+</Plugin>
 
 ##############################################################################
 # Filter configuration                                                       #
