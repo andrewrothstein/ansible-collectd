@@ -206,7 +206,11 @@ LoadPlugin users
 #LoadPlugin write_tsdb
 ##LoadPlugin xmms
 #LoadPlugin zfs_arc
+{% if 'zookeeper' in group_names %}
 LoadPlugin zookeeper
+{% else %}
+#LoadPlugin zookeeper
+{% endif %}
 
 ##############################################################################
 # Plugin configuration                                                       #
@@ -1414,10 +1418,12 @@ LoadPlugin zookeeper
 #	</Node>
 #</Plugin>
 
+{% if 'zookeeper' in group_names %}
 <Plugin zookeeper>
     Host "localhost"
     Port "2181"
 </Plugin>
+{% endif %}
 
 ##############################################################################
 # Filter configuration                                                       #
