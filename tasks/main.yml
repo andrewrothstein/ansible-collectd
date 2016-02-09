@@ -20,13 +20,13 @@
     mode=644
 
 - name: systemctl daemon-reload
-  when: collectd_service_updated.changed
+  when: collectd_service_updated|changed
   command: systemctl daemon-reload
 
 - name: collectd restarted/enabled
   service: >
     name=collectd.service
-    state=restarted
+    state=started
     enabled=yes
 
   
