@@ -5,3 +5,7 @@ collectd_build_clean : False
 collectd_network_port : 25826
 
 collectd_zk_groupname : 'zookeeper'
+
+collectd_df_devicelist :
+  - '/dev/vda'
+  - '/dev/vda1'

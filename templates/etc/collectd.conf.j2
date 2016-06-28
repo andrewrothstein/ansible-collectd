@@ -482,7 +482,13 @@ LoadPlugin zookeeper
 #</Plugin>
 
 <Plugin df>
+{% if collectd_df_devicelist is defined %}
+	{% for device in collectd_df_devicelist %}
+		Device {{ device }}
+	{% endfor %}
+{% else %}
 	Device "/dev/vda"
+{% endif %}
 #	Device "192.168.0.2:/mnt/nfs"
 #	MountPoint "/opt"
 #	FSType "ext3"
