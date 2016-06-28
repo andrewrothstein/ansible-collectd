@@ -88,7 +88,7 @@ LoadPlugin syslog
 # to missing dependencies or because they have been deactivated explicitly.  #
 ##############################################################################
 
-#LoadPlugin aggregation
+LoadPlugin aggregation
 ##LoadPlugin amqp
 #LoadPlugin apache
 #LoadPlugin apcups
@@ -191,7 +191,7 @@ LoadPlugin swap
 #LoadPlugin turbostat
 #LoadPlugin unixsock
 #LoadPlugin uptime
-LoadPlugin users
+#LoadPlugin users
 #LoadPlugin uuid
 ##LoadPlugin varnish
 ##LoadPlugin mic
@@ -223,25 +223,20 @@ LoadPlugin zookeeper
 # ription of those options is available in the collectd.conf(5) manual page. #
 ##############################################################################
 
-#<Plugin aggregation>
-#  <Aggregation>
-#    #Host "unspecified"
-#    Plugin "cpu"
-#    #PluginInstance "unspecified"
-#    Type "cpu"
-#    #TypeInstance "unspecified"
-#
-#    GroupBy "Host"
-#    GroupBy "TypeInstance"
-#
+<Plugin aggregation>
+  <Aggregation>
+    Plugin "cpu"
+    Type "cpu"
+    GroupBy "Host"
+    GroupBy "TypeInstance"
 #    CalculateNum false
 #    CalculateSum false
-#    CalculateAverage true
-#    CalculateMinimum false
-#    CalculateMaximum false
-#    CalculateStddev false
-#  </Aggregation>
-#</Plugin>
+    CalculateAverage true
+    CalculateMinimum true
+    CalculateMaximum true
+    CalculateStddev true
+  </Aggregation>
+</Plugin>
 
 #<Plugin amqp>
 #  <Publish "name">
