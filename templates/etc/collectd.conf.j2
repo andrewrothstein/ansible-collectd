@@ -109,7 +109,11 @@ LoadPlugin cpu
 #LoadPlugin curl_json
 #LoadPlugin curl_xml
 ##LoadPlugin dbi
+{% if collectd_df_devicelist is defined %}
 LoadPlugin df
+{% else %}
+#LoadPlugin df
+{% endif %}
 LoadPlugin disk
 ##LoadPlugin dns
 #LoadPlugin drbd
@@ -481,8 +485,11 @@ LoadPlugin zookeeper
 #	</Database>
 #</Plugin>
 
+{% if collectd_df_devicelist is defined %}
 <Plugin df>
-	Device "/dev/vda"
+{% for device in collectd_df_devicelist %}
+	Device "{{ device }}"
+{% endfor %}
 #	Device "192.168.0.2:/mnt/nfs"
 #	MountPoint "/opt"
 #	FSType "ext3"
@@ -493,6 +500,7 @@ LoadPlugin zookeeper
 #	ValuesAbsolute true
 #	ValuesPercentage false
 </Plugin>
+{% endif %}
 
 <Plugin disk>
 	Disk "/^vd[a-f][0-9]?$/"
@@ -1418,7 +1426,7 @@ LoadPlugin zookeeper
 #	</Node>
 #</Plugin>
 
-{% if 'zookeeper' in group_names %}
+{% if collectd_zk_groupname in group_names %}
 <Plugin zookeeper>
     Host "localhost"
     Port "2181"
