@@ -481,14 +481,11 @@ LoadPlugin zookeeper
 #	</Database>
 #</Plugin>
 
-<Plugin df>
 {% if collectd_df_devicelist is defined %}
-	{% for device in collectd_df_devicelist %}
-		Device {{ device }}
-	{% endfor %}
-{% else %}
-	Device "/dev/vda"
-{% endif %}
+<Plugin df>
+{% for device in collectd_df_devicelist %}
+	Device {{ device }}
+{% endfor %}
 #	Device "192.168.0.2:/mnt/nfs"
 #	MountPoint "/opt"
 #	FSType "ext3"
@@ -499,6 +496,7 @@ LoadPlugin zookeeper
 #	ValuesAbsolute true
 #	ValuesPercentage false
 </Plugin>
+{% endif %}
 
 <Plugin disk>
 	Disk "/^vd[a-f][0-9]?$/"
