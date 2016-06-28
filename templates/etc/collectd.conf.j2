@@ -206,7 +206,7 @@ LoadPlugin users
 #LoadPlugin write_tsdb
 ##LoadPlugin xmms
 #LoadPlugin zfs_arc
-{% if 'zookeeper' in group_names %}
+{% if collectd_zk_groupname in group_names %}
 LoadPlugin zookeeper
 {% else %}
 #LoadPlugin zookeeper
