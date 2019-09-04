@@ -3,30 +3,41 @@
   include: BuildFromSource.yml
 
 - name: apply configuration...
-  template: >-
-    src=etc/collectd.conf.j2
-    dest={{collectd_target_dir}}/etc/collectd.conf
-    owner=root
-    group=root
-    mode=644
+  become: yes
+  become_user: root
+  with_items:
+    - f: collectd.conf
+      d: '{{ collectd_target_dir }}/etc'
+  template:
+    src: '{{ item.f }}.j2'
+    dest: '{{ item.d }}/{{ item.f }}'
+    mode: '{{ item.m | default("0644") }}'
 
 - name: install collectd.service...
   register: collectd_service_updated
-  template: >-
-    src=usr/lib/systemd/system/collectd.service.j2
-    dest=/usr/lib/systemd/system/collectd.service
-    owner=root
-    group=root
-    mode=644
+  become: yes
+  become_user: root
+  with_items:
+    - f: collectd.service
+      d: /etc/systemd/system
+  template:
+    src: '{{ item.f }}.j2'
+    dest: '{{ item.d }}/{{ item.f }}'
+    mode: '{{ item.m | default("0644") }}'
 
 - name: systemctl daemon-reload
-  when: collectd_service_updated|changed
+  become: yes
+  become_user: root
+  when: collectd_service_updated|changed and collectd_started
   command: systemctl daemon-reload
 
 - name: collectd restarted/enabled
-  service: >
-    name=collectd.service
-    state=started
-    enabled=yes
+  when: collectd_started
+  become: yes
+  become_user: root
+  service:
+    name: collectd.service
+    state: started
+    enabled: yes
 
   

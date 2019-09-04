@@ -1,7 +1,17 @@
 ---
-collectd_ver : '5.5.0'
-collectd_mirror : 'https://collectd.org/files'
-collectd_build_clean : False
-collectd_network_port : 25826
+collectd_ver: '5.9.0'
+collectd_mirror: https://collectd.org/files
 
-collectd_zk_groupname : 'zookeeper'
+collectd_checksums:
+  # curl -s https://collectd.org/files/SHA256SUM | fgrep collectd-5.9.0.tar.bz2 | awk '{print $1}'
+  '5.9.0': sha256:7b220f8898a061f6e7f29a8c16697d1a198277f813da69474a67911097c0626b
+
+collectd_network_config:
+  ty: static
+  ip: 127.0.0.1
+  port: 25826
+
+collectd_zk_groupname: zookeeper
+
+collectd_build_clean: False
+collectd_started: True

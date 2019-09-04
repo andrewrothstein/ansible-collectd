@@ -1,40 +1,38 @@
 ---
-- name: deps...
-  when: ansible_os_family == 'RedHat'
-  package: name={{item}} state=latest
-  with_items:
-    - gcc
-    - perl-devel
-
 - name: download collectd source
-  get_url: >-
-    url={{collectd_tgz_url}}
-    dest=/tmp/{{collectd_tgz}}
-    owner=root
-    group=root
-    mode=644
+  become: yes
+  become_user: root
+  get_url:
+    url: '{{ collectd_tgz_url }}'
+    dest: /tmp/{{ collectd_tgz }}
+    checksum: '{{ collectd_checksum }}'
+    mode: 0644
 
 - name: unarchive...
-  unarchive: >-
-    copy=no
-    src=/tmp/{{collectd_tgz}}
-    dest=/opt
-    owner=root
-    group=root
-    creates={{collectd_src_dir}}
+  become: yes
+  become_user: root
+  unarchive:
+    remote_src: yes
+    src: /tmp/{{ collectd_tgz }}
+    dest: /opt
+    creates: '{{ collectd_src_dir }}'
 
 - name: configure...
-  command: ./configure --prefix={{collectd_target_dir}}
+  command: ./configure --prefix={{ collectd_target_dir }}
   args:
-    chdir: '{{collectd_src_dir}}'
-    creates: /opt/{{collectd_name}}/Makefile
+    chdir: '{{ collectd_src_dir }}'
+    creates: /opt/{{ collectd_name }}/Makefile
 
 - name: make all install...
   command: make all install
   args:
-    chdir: '{{collectd_src_dir}}'
-    creates: '{{collectd_target_dir}}/sbin/collectd'
+    chdir: '{{ collectd_src_dir }}'
+    creates: '{{ collectd_target_dir }}/sbin/collectd'
 
 - name: cleanup...
   when: collectd_build_clean
-  command: rm -rf '{{collectd_src_dir}}'
+  become: yes
+  become_user: root
+  file:
+    path: '{{ collectd_src_dir }}'
+    state: absent

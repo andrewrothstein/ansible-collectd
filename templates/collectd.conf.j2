@@ -10,7 +10,7 @@
 # Global settings for the daemon.                                            #
 ##############################################################################
 
-Hostname    "{{inventory_hostname}}"
+Hostname    "{{ inventory_hostname }}"
 #FQDNLookup   true
 #BaseDir     "${prefix}/var/lib/collectd"
 #PIDFile     "${prefix}/var/run/collectd.pid"
@@ -100,7 +100,7 @@ LoadPlugin aggregation
 #LoadPlugin bind
 #LoadPlugin ceph
 #LoadPlugin conntrack
-#LoadPlugin contextswitch
+LoadPlugin contextswitch
 #LoadPlugin cgroups
 LoadPlugin cpu
 #LoadPlugin cpufreq
@@ -760,7 +760,7 @@ LoadPlugin zookeeper
 
 <Plugin network>
 #	# client setup:
-	Server "{{ansible_default_ipv4['address']}}" "{{collectd_network_port}}"
+	Server "{{ collectd_network_config.ip }}" "{{ collectd_network_config.port }}"
 #	<Server "239.192.74.66" "25826">
 #		SecurityLevel Encrypt
 #		Username "user"
