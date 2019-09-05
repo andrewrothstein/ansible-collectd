@@ -1,0 +1,3 @@
+---
+collectd_os_dep_pkgs:
+  - findutils 

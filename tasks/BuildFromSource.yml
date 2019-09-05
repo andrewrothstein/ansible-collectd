@@ -1,4 +1,10 @@
 ---
+- name: install build dep os pkgs
+  become: yes
+  become_user: root
+  package:
+    name: '{{ collectd_os_dep_pkgs | default([]) }}'
+    state: present
 - name: download collectd source
   become: yes
   become_user: root
