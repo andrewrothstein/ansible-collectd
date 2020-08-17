@@ -39,5 +39,3 @@
     name: collectd.service
     state: started
     enabled: yes
-
-  
