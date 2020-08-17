@@ -1,6 +1,9 @@
 ---
 - name: install...
-  apt: name={{item}} state=latest
-  with_items:
-    - collectd
-    - collectd-utils
+  become: yes
+  become_user: root
+  package:
+    name:
+      - collectd
+      - collectd-utils
+    state: present
